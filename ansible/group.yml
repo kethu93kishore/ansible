@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  connection: ssh
+  gather_facts: yes
+  tasks:
+    - name: create an iam group for "{{ env }}" environment
+      iam_group:
+        name: "{{ group_name }}"
+        state: present
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+      tags: iamgroup
+
