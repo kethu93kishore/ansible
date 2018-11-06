@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  connection: ssh
+  gather_facts: yes
+  tasks:
+
+    - name: To attach ebs volume for "{{ env }}" environment
+      ec2_vol:
+        instance: "{{ instance_id }}"
+        id: "{{ vol_id}}"
+        device_name: /dev/sdg
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+        region: "{{ aws_region }}"
+        zone: us-east-1a
+      tags: ec2_vol
+
