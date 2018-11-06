@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  connection: ssh
+  gather_facts: yes
+  tasks:
+    - name: create an ec2 instance for "{{ env }}" environment
+      ec2: 
+        region: "{{ aws_region }}"
+        key_name: "{{ key_name }}"
+        instance_type: "{{ instance_type }}"
+        image: "{{ image_id }}"
+        count: 1
+        vpc_subnet_id: "{{ subnet_id }}" 
+        assign_public_ip: yes
+        state: present
+        aws_access_key: "{{aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+      tags: instance1
