@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  connection: ssh
+  gather_facts: yes
+  tasks:
+    - name: Enable logging of s3 bucket  to s3 bucket
+      s3_logging:
+        name: "{{ bucket_name }}"
+        target_bucket: "{{ target_bucket }}"
+#        target_prefix: "{{ target_prefix }}"
+        state: present
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+      tags: s3logging
+

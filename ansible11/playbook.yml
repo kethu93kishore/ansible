@@ -1,0 +1,27 @@
+########creation of s3 bucket#######3
+---
+- hosts: localhost
+  connection: ssh
+  gather_facts: yes
+  tasks:
+    - name: set all the connetions
+      set_fact:
+        aws_connection_info: &aws_connection_info
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+        region: "{{ aws_region }}"
+      tags: [ 's3devqa','s3prod' ] 
+
+    - name: create an s3 bucket for "{{ env }}" environment
+      s3_bucket: 
+        name: "xyz-{{ type_prefix1 }}-{{ application_prefix2 }}-{{ env }}"
+        state: present
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+        region: "{{ aws_region }}"
+        versioning: "{{ enable_option }}"
+        tags:
+          Customer: "{{ tag1 }}"
+          Requested: "{{ tag2 }}"
+      register: output
+      tags: s3devqa

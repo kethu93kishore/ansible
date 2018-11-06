@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  connection: ssh
+  gather_facts: yes
+  tasks:
+    - name: attaching an existing volume to the instance
+      ec2_vol:
+        instance: "{{ instance_id }}"
+        id: "{{ vol_id }}"
+        device_name: /dev/xvdf
+        delete_on_termination: yes
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+        region: "{{ aws_region }}"
+      tags: ec2vol

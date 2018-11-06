@@ -1,0 +1,26 @@
+---
+- hosts: localhost
+  connection: ssh
+  gather_facts: yes
+  tasks:
+    - name: create an iam user for "{{ env }}" environment
+      iam_user:
+        name: "{{ user_name }}"
+        state: present
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+        access_key_state: create
+      tags: iamuser
+
+    - name: create an iam user for "{{ env }}" environment
+      iam:
+        name: "{{ user_name }}"
+        state: present
+        iam_type: user
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+        access_key_state: create
+#    - debug: var=credentials
+
+      tags: iamcli
+

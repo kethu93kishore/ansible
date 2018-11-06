@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  connection: ssh
+  gather_facts: yes
+  tasks:
+
+    - name: create an ebs volume for "{{ env }}" environment
+      ec2_vol:
+        name: "{{ volume_name }}" 
+        volume_size: "{{ volume_size }}"
+        volume_type: "{{ volume_type }}"
+        device_name: /dev/xvdf
+        state: present
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+        region: "{{ aws_region }}"
+        zone: us-east-1a
+      tags: ec2_vol
